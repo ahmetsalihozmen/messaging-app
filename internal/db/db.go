@@ -3,41 +3,49 @@ package db
 import (
 	"fmt"
 	"log"
+	"sync"
 
 	_ "github.com/mattn/go-sqlite3"
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 )
 
-func ConnectDB() (*gorm.DB, error) {
-	database, err := gorm.Open(sqlite.Open("myapp.db"), &gorm.Config{})
-	if err != nil {
-		log.Fatalf("Failed to connect to the database: %v", err)
-		return nil, err
-	}
+var (
+	dbInstance *gorm.DB
+	once       sync.Once
+)
 
-	tableExists, err := checkIfTableExists(database, "messages")
-	if err != nil {
-		return nil, err
-	}
-
-	if !tableExists {
-		fmt.Println("Messages table does not exist, creating...")
-
-		err := database.AutoMigrate(&Message{})
+func ConnectDB(path string) (*gorm.DB, error) {
+	once.Do(func() {
+		var err error
+		dbInstance, err = gorm.Open(sqlite.Open(path), &gorm.Config{})
 		if err != nil {
-			return nil, err
+			log.Fatalf("Failed to connect to the dbInstance: %v", err)
 		}
 
-		err = insertInitialMessages(database)
+		tableExists, err := checkIfTableExists(dbInstance, "messages")
 		if err != nil {
-			return nil, err
+			log.Fatalf("Failed to check if table exists: %v", err)
 		}
 
-		fmt.Println("Table created and 100 rows inserted.")
-	}
+		if !tableExists {
+			fmt.Println("Messages table does not exist, creating...")
 
-	return database, nil
+			err := dbInstance.AutoMigrate(&Message{})
+			if err != nil {
+				log.Fatalf("Failed to create table: %v", err)
+			}
+
+			err = insertInitialMessages(dbInstance)
+			if err != nil {
+				log.Fatalf("Failed to insert initial messages: %v", err)
+			}
+
+			fmt.Println("Table created and 100 rows inserted.")
+		}
+	})
+
+	return dbInstance, nil
 }
 
 func checkIfTableExists(db *gorm.DB, tableName string) (bool, error) {

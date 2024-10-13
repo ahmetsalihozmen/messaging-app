@@ -3,7 +3,7 @@ package handlers
 import (
 	"encoding/json"
 	"fmt"
-	"insider-project/internal/service"
+	"messaging-app/internal/service"
 	"net/http"
 )
 

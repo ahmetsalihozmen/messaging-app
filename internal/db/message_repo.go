@@ -10,15 +10,15 @@ type MessageRepository interface {
 	UpdateMessageStatus(messages []Message, status string) error
 }
 
-type GormMessageRepository struct {
+type gormMessageRepository struct {
 	db *gorm.DB
 }
 
 func NewMessageRepository(db *gorm.DB) MessageRepository {
-	return &GormMessageRepository{db: db}
+	return &gormMessageRepository{db: db}
 }
 
-func (r *GormMessageRepository) GetSentMessages() ([]Message, error) {
+func (r *gormMessageRepository) GetSentMessages() ([]Message, error) {
 	var messages []Message
 	if err := r.db.Where("status = ?", "sent").Find(&messages).Error; err != nil {
 		return nil, err
@@ -26,7 +26,7 @@ func (r *GormMessageRepository) GetSentMessages() ([]Message, error) {
 	return messages, nil
 }
 
-func (r *GormMessageRepository) GetUnsentMessages(limit int) ([]Message, error) {
+func (r *gormMessageRepository) GetUnsentMessages(limit int) ([]Message, error) {
 	var messages []Message
 	if err := r.db.Where("status != ?", "sent").Limit(limit).Find(&messages).Error; err != nil {
 		return nil, err
@@ -34,7 +34,7 @@ func (r *GormMessageRepository) GetUnsentMessages(limit int) ([]Message, error) 
 	return messages, nil
 }
 
-func (r *GormMessageRepository) UpdateMessageStatus(messages []Message, status string) error {
+func (r *gormMessageRepository) UpdateMessageStatus(messages []Message, status string) error {
 	for _, message := range messages {
 		if err := r.db.Model(&message).Update("status", status).Error; err != nil {
 			return err

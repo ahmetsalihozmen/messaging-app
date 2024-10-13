@@ -6,18 +6,21 @@ services:
       - "6379:6379" # Expose Redis port
     networks:
       - app-network
-
-  insiderapp:
+  messagingapp:
     build:
       context: .
       dockerfile: ./Dockerfile
-    container_name: insiderapp
+    container_name: messagingapp
     ports:
       - "8080:8080"
     depends_on:
       - redis  
     environment:
-      - REDIS_ADDR=redis:6379  
+      - PORT=8080
+      - REDIS_ADDR=redis:6379
+      - DATABASE_URL=messages.db
+      - WEBHOOK_URL=https://webhook.site/ba6a41ba-a547-425f-ad7c-a833f8837b12
+      - MESSAGING_PERIOD=120
     networks:
       - app-network
 

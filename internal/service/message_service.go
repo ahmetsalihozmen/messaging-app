@@ -2,8 +2,8 @@ package service
 
 import (
 	"fmt"
-	"insider-project/internal/cache"
-	"insider-project/internal/db"
+	"messaging-app/internal/cache"
+	"messaging-app/internal/db"
 	"sync"
 	"time"
 )
@@ -16,14 +16,13 @@ type MessageService struct {
 	mutex     sync.Mutex
 }
 
-func NewMessageService(repo db.MessageRepository, webhookUrl string) *MessageService {
+func NewMessageService(repo db.MessageRepository, webhookUrl string, period int) *MessageService {
 	service := &MessageService{
-		state:     &StartedState{},
-		scheduler: NewMessageScheduler(),
-		sender:    NewSenderService(webhookUrl),
-		repo:      repo,
+		state:  &StartedState{},
+		sender: NewSenderService(webhookUrl),
+		repo:   repo,
 	}
-	service.scheduler.service = service
+	service.scheduler = NewMessageScheduler(service, period)
 	service.state.HandleState(service)
 	return service
 }
@@ -97,12 +96,15 @@ type MessageScheduler struct {
 	service *MessageService
 	ticker  *time.Ticker
 	done    chan bool
+	period  time.Duration
 	mutex   sync.Mutex
 }
 
-func NewMessageScheduler() *MessageScheduler {
+func NewMessageScheduler(service *MessageService, period int) *MessageScheduler {
 	return &MessageScheduler{
-		done: make(chan bool),
+		service: service,
+		done:    make(chan bool),
+		period:  time.Duration(period),
 	}
 }
 
@@ -115,7 +117,7 @@ func (scheduler *MessageScheduler) StartTimer() {
 	}
 
 	fmt.Println("Starting timer to send messages every 2 minutes")
-	scheduler.ticker = time.NewTicker(10 * time.Second)
+	scheduler.ticker = time.NewTicker(scheduler.period * time.Second)
 
 	go func() {
 		for {

@@ -1,7 +1,7 @@
 package service
 
 import (
-	"insider-project/internal/db"
+	"messaging-app/internal/db"
 	"net/http"
 	"net/http/httptest"
 	"strings"

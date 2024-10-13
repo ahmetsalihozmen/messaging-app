@@ -2,14 +2,15 @@ package main
 
 import (
 	"fmt"
-	"insider-project/internal/cache"
-	"insider-project/internal/db"
-	"insider-project/internal/service"
-	"insider-project/pkg/handlers"
 	"log"
+	"messaging-app/internal/cache"
+	"messaging-app/internal/config"
+	"messaging-app/internal/db"
+	"messaging-app/internal/handlers"
+	"messaging-app/internal/service"
 	"net/http"
 
-	_ "insider-project/api/docs"
+	_ "messaging-app/api/docs"
 
 	httpSwagger "github.com/swaggo/http-swagger"
 )
@@ -20,16 +21,17 @@ import (
 // @host localhost:8080
 // @BasePath /
 func main() {
-	// Connect to the database and initialize the Redis client
-	database, err := db.ConnectDB()
+	cfg := config.LoadConfig()
+
+	database, err := db.ConnectDB(cfg.DatabaseURL)
 	if err != nil {
 		log.Fatal("Failed to connect to the database", err)
 	}
-	cache.InitializeRedisClient()
+	cache.InitializeRedisClient(cfg.RedisAddr)
 
 	messageRepository := db.NewMessageRepository(database)
 
-	messageService := service.NewMessageService(messageRepository, "https://webhook.site/ba6a41ba-a547-425f-ad7c-a833f8837b12")
+	messageService := service.NewMessageService(messageRepository, cfg.WebhookURL, cfg.MessagingPeriod)
 
 	// Set up HTTP handlers
 	http.HandleFunc("/startstop", func(w http.ResponseWriter, r *http.Request) {
@@ -44,5 +46,5 @@ func main() {
 	http.Handle("/swagger/", httpSwagger.WrapHandler)
 
 	fmt.Println("HTTP server listening on :8080")
-	log.Fatal(http.ListenAndServe(":8080", nil))
+	log.Fatal(http.ListenAndServe(":"+cfg.Port, nil))
 }

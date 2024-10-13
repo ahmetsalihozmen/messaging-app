@@ -1,7 +1,7 @@
 package service
 
 import (
-	"insider-project/internal/db"
+	"messaging-app/internal/db"
 	"net/http"
 	"net/http/httptest"
 	"testing"
@@ -31,7 +31,7 @@ func TestMessageService_Start(t *testing.T) {
 	mockRepo := &MockMessageRepository{}
 	mockServer := httptest.NewServer(http.HandlerFunc(mockWebhookSuccess))
 
-	service := NewMessageService(mockRepo, mockServer.URL)
+	service := NewMessageService(mockRepo, mockServer.URL, 1)
 
 	service.Start()
 
@@ -44,7 +44,7 @@ func TestMessageService_Stop(t *testing.T) {
 	mockRepo := &MockMessageRepository{}
 	mockServer := httptest.NewServer(http.HandlerFunc(mockWebhookSuccess))
 
-	service := NewMessageService(mockRepo, mockServer.URL)
+	service := NewMessageService(mockRepo, mockServer.URL, 1)
 
 	service.Stop()
 
@@ -57,7 +57,7 @@ func TestMessageService_SendMessages(t *testing.T) {
 	mockRepo := &MockMessageRepository{}
 	mockServer := httptest.NewServer(http.HandlerFunc(mockWebhookSuccesEmpty))
 
-	service := NewMessageService(mockRepo, mockServer.URL)
+	service := NewMessageService(mockRepo, mockServer.URL, 1)
 	service.scheduler.StopTimer()
 
 	// Send messages
@@ -71,7 +71,7 @@ func TestMessageService_SendMessages(t *testing.T) {
 func TestMessageService_GetSentMessages(t *testing.T) {
 	mockRepo := &MockMessageRepository{}
 
-	service := NewMessageService(mockRepo, "")
+	service := NewMessageService(mockRepo, "", 1)
 
 	sentMessages, err := service.SentMessages()
 
