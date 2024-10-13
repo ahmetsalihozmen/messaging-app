@@ -1,0 +1,77 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/24.7.17 Chrome/128.0.6613.36 Electron/32.0.1 Safari/537.36" version="24.7.17">
+  <diagram name="Page-1" id="zaBxgDRt4SKlW4GgDTds">
+    <mxGraphModel dx="792" dy="1182" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="i2kwxAQ7Ykrzt2ATEb_k-1" value="MessageDB" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.database;whiteSpace=wrap;" parent="1" vertex="1">
+          <mxGeometry x="70" y="257.5" width="90" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="i2kwxAQ7Ykrzt2ATEb_k-30" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.25;exitDx=0;exitDy=0;entryX=0;entryY=0.25;entryDx=0;entryDy=0;" parent="1" source="i2kwxAQ7Ykrzt2ATEb_k-2" target="i2kwxAQ7Ykrzt2ATEb_k-28" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="i2kwxAQ7Ykrzt2ATEb_k-2" value="MessageServer" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="320" y="262.5" width="150" height="105" as="geometry" />
+        </mxCell>
+        <mxCell id="i2kwxAQ7Ykrzt2ATEb_k-7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="i2kwxAQ7Ykrzt2ATEb_k-2" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="160" y="330" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="160" y="330" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="i2kwxAQ7Ykrzt2ATEb_k-8" value="- Unsent Messages&lt;br&gt;- Sent messages" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
+          <mxGeometry x="175" y="275" width="130" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="i2kwxAQ7Ykrzt2ATEb_k-9" value="Which Messages are sent" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
+          <mxGeometry x="160" y="337.5" width="160" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="i2kwxAQ7Ykrzt2ATEb_k-11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="i2kwxAQ7Ykrzt2ATEb_k-1" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="320" y="312" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="i2kwxAQ7Ykrzt2ATEb_k-12" value="Redis" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.database;whiteSpace=wrap;" parent="1" vertex="1">
+          <mxGeometry x="355" y="120" width="80" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="i2kwxAQ7Ykrzt2ATEb_k-18" value="Save the response&lt;br&gt;messageID and its&amp;nbsp;&lt;div&gt;sending time&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
+          <mxGeometry x="270" y="197.5" width="130" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="i2kwxAQ7Ykrzt2ATEb_k-20" value="" style="endArrow=classic;html=1;rounded=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;entryPerimeter=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;" parent="1" source="i2kwxAQ7Ykrzt2ATEb_k-2" target="i2kwxAQ7Ykrzt2ATEb_k-12" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="220" y="300" as="sourcePoint" />
+            <mxPoint x="270" y="250" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="i2kwxAQ7Ykrzt2ATEb_k-21" value="&lt;div&gt;/startstop?process&lt;/div&gt;/sentMessages" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
+          <mxGeometry x="335" y="367.5" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="i2kwxAQ7Ykrzt2ATEb_k-25" value="content&lt;br&gt;receiver&lt;br&gt;status" style="shape=parallelogram;html=1;strokeWidth=2;perimeter=parallelogramPerimeter;whiteSpace=wrap;rounded=1;arcSize=12;size=0.23;" parent="1" vertex="1">
+          <mxGeometry x="65" y="416" width="80" height="47.5" as="geometry" />
+        </mxCell>
+        <mxCell id="i2kwxAQ7Ykrzt2ATEb_k-26" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.632;entryY=0.047;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="i2kwxAQ7Ykrzt2ATEb_k-1" target="i2kwxAQ7Ykrzt2ATEb_k-25" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="i2kwxAQ7Ykrzt2ATEb_k-31" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=-0.017;exitY=0.57;exitDx=0;exitDy=0;entryX=1.013;entryY=0.576;entryDx=0;entryDy=0;exitPerimeter=0;entryPerimeter=0;" parent="1" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="586.01" y="336.4999999999999" as="sourcePoint" />
+            <mxPoint x="470.00000000000006" y="337.13" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="i2kwxAQ7Ykrzt2ATEb_k-28" value="Webhook.site" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="590" y="262.5" width="120" height="105" as="geometry" />
+        </mxCell>
+        <mxCell id="i2kwxAQ7Ykrzt2ATEb_k-34" value="to: number&lt;br&gt;content: message" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
+          <mxGeometry x="470" y="250" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="i2kwxAQ7Ykrzt2ATEb_k-35" value="message: Accepted&lt;br&gt;messageId: id" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
+          <mxGeometry x="460" y="337.5" width="130" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="i2kwxAQ7Ykrzt2ATEb_k-36" value="202" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
+          <mxGeometry x="505" y="307.5" width="40" height="30" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

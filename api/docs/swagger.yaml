@@ -1,0 +1,38 @@
+basePath: /
+host: localhost:8080
+info:
+  contact: {}
+  description: This is a sample server for the message service.
+  title: Message Service API
+  version: "1.0"
+paths:
+  /get-sent-messages:
+    get:
+      description: Getting all messages that are sent
+      responses:
+        "200":
+          description: 'Messages '
+          schema:
+            type: string
+      summary: Getting all messages that are sent
+      tags:
+      - Service
+  /startstop:
+    get:
+      description: Starts or stops the message sending service that sends messages
+        every 2 minutes by sending the action in query
+      parameters:
+      - description: 'Action to perform: ''start'' or ''stop'''
+        in: query
+        name: action
+        required: true
+        type: string
+      responses:
+        "200":
+          description: Service started
+          schema:
+            type: string
+      summary: Starts and stops the message service
+      tags:
+      - Service
+swagger: "2.0"
